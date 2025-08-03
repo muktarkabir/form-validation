@@ -17,12 +17,16 @@ const postalCodeErrorMessage = postalCodeDiv.querySelector("p");
 const submitButton = form.querySelector("input[type='submit']");
 const passwordRules = document.querySelector(".password-rules");
 
+let emailIsValid = false;
+let passwordIsValid = false;
+let confirmPasswordIsValid = false;
+let countryIsValid = false;
+let postalCodeIsValid = false;
+
 function validatePostalCode(country) {
+  postalCodeIsValid = false;
+
   if (country == "") {
-    setUserFeedback({
-      element: postalCodeErrorMessage,
-      message: "Please select a country",
-    });
     setUserFeedback({
       element: countrySelectErrorMessage,
       message: "Please select a country",
@@ -55,12 +59,12 @@ function validatePostalCode(country) {
 
   // Build the constraint checker
   const constraint = new RegExp(constraints[country][0], "");
-  console.log(constraint);
 
   // Check it!
   if (constraint.test(postalCodeField.value)) {
     // The postal code follows the constraint, we use the ConstraintAPI to tell it
     setUserFeedback({ element: postalCodeErrorMessage });
+    postalCodeIsValid = true;
   } else {
     // The postal code doesn't follow the constraint, we use the ConstraintAPI to
     // give a message about the format required for this country
@@ -72,6 +76,8 @@ function validatePostalCode(country) {
 }
 
 const validateEmail = (input) => {
+  emailIsValid = false;
+
   // Regular expression for email validation as per HTML specification
   const emailRegExp = /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)*$/i;
 
@@ -98,11 +104,14 @@ const validateEmail = (input) => {
       });
     } else if (emailRegExp.test(input)) {
       setUserFeedback({ element: emailErrorMessage });
+      emailIsValid = true;
     }
   }
 };
 
 const validatePassword = (input) => {
+  passwordIsValid = false;
+
   const constraint = new RegExp(
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$"
   );
@@ -129,6 +138,7 @@ const validatePassword = (input) => {
       message: "",
     });
     passwordRules.style.display = "none";
+    passwordIsValid = true;
   }
 
   if (lengthConstraint.test(input)) {
@@ -157,6 +167,43 @@ const setUserFeedback = ({ element, message = "" }) => {
   element.textContent = message;
 };
 
+const checkPasswords = () => {
+  confirmPasswordIsValid = false;
+  if (confirmPasswordField.value !== passwordField.value) {
+    setUserFeedback({
+      element: confirmPasswordErrorMessage,
+      message: "Passwords do not match",
+    });
+  } else {
+    setUserFeedback({ element: confirmPasswordErrorMessage });
+    confirmPasswordIsValid = true;
+  }
+};
+
+const validateCountry = () => {
+  countryIsValid = false;
+  if (countrySelectBox.value == "") {
+    setUserFeedback({
+      element: countrySelectErrorMessage,
+      message: "Please select a country",
+    });
+  } else {
+    setUserFeedback({ element: countrySelectErrorMessage, message: "" });
+    countryIsValid = true;
+  }
+};
+
+const everythingChecksOut = () => {
+  if (
+    emailIsValid &&
+    passwordIsValid &&
+    confirmPasswordIsValid &&
+    countryIsValid &&
+    postalCodeIsValid
+  ) {
+    return true;
+  } else return false;
+};
 emailField.addEventListener("input", function () {
   validateEmail(this.value);
 });
@@ -164,6 +211,24 @@ passwordField.addEventListener("input", function () {
   validatePassword(this.value);
 });
 
+confirmPasswordField.addEventListener("input", checkPasswords);
+
 postalCodeField.addEventListener("input", function () {
   validatePostalCode(countrySelectBox.value);
+});
+
+countrySelectBox.addEventListener("input", validateCountry);
+
+submitButton.addEventListener("click", (e) => {
+  e.preventDefault();
+  validateEmail(emailField.value);
+  validatePassword(passwordField.value);
+  checkPasswords();
+  validateCountry();
+  validatePostalCode(countrySelectBox.value);
+  if (everythingChecksOut()) {
+    console.log("Yassssss");
+  } else {
+    console.log("Nooooooo");
+  }
 });
