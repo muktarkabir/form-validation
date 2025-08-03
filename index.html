@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Form Validation</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <form action="#" novalidate>
@@ -17,6 +18,14 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password" required />
         <p></p>
+        <div class="password-rules">
+          <ul>
+            <li>Must be at least 8 characters</li>
+            <li>Must include an Uppercase letter</li>
+            <li>Must include a special character</li>
+            <li>Must include a number</li>
+          </ul>
+        </div>
       </div>
       <div class="confirm-password">
         <label for="confirm-password">Confirm password</label>
