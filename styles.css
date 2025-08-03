@@ -84,7 +84,8 @@ body {
   );
   background-size: 400%;
   animation: bgShift 15s ease infinite;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 @keyframes bgShift {
   0% {
@@ -112,7 +113,8 @@ form {
     display: flex;
     flex-direction: column;
     margin-bottom: 8px;
-    input,select {
+    input,
+    select {
       all: unset;
       border: none;
       border: 1px solid grey;
@@ -123,6 +125,15 @@ form {
       &:focus {
         border: 1px solid rgb(168, 168, 168);
       }
+      &:user-invalid {
+        background-color: rgba(255, 0, 0, 0.2);
+      }
+    }
+    p {
+      font-size: 0.8rem;
+      font-weight: 300;
+      font-style: italic;
+      color: red;
     }
   }
 
@@ -144,5 +155,22 @@ form {
     &:hover {
       filter: brightness(1.2);
     }
+  }
+}
+
+.password-rules {
+  margin-top: 0.6rem;
+  border-radius: 8px;
+  padding-left: 0.4rem;
+  border-left: 6px solid gray;
+  border-bottom: 1px solid rgb(223, 223, 223);
+  border-top: 1px solid rgb(223, 223, 223);
+  border-right: 1px solid rgb(223, 223, 223);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: rgb(from rgb(32, 212, 218) r g b/0.2);
+  ul {
+    list-style: none;
+    color: red;
   }
 }
