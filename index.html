@@ -1,11 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Form Validation</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <form action="#" novalidate>
+      <div class="email">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" />
+      </div>
+      <div class="password">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
+      </div>
+      <div class="password">
+        <label for="confirm-password">Password</label>
+        <input
+          type="confirm-password"
+          name="confirm-password"
+          id="confirm-password"
+        />
+      </div>
+      <div class="country">
+        <label for="country">Country</label>
+        <input type="text" name="country" id="country" />
+      </div>
+      <div class="postal-code">
+        <label for="postal-code">Postal Code</label>
+        <input type="number" name="postal-code" id="postal-code" />
+      </div>
+      <input type="submit" value="Validate" />
+    </form>
+  </body>
 </html>
