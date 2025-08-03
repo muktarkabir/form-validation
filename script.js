@@ -14,9 +14,19 @@ const countrySelectErrorMessage = countrySelectDiv.querySelector("p");
 const postalCodeDiv = form.querySelector("div.postal-code");
 const postalCodeField = postalCodeDiv.querySelector("input");
 const postalCodeErrorMessage = postalCodeDiv.querySelector("p");
+const submitButton = form.querySelector("input[type='submit']");
+const passwordRules = document.querySelector(".password-rules");
 
 function validatePostalCode(country) {
   if (country == "") {
+    setUserFeedback({
+      element: postalCodeErrorMessage,
+      message: "Please select a country",
+    });
+    setUserFeedback({
+      element: countrySelectErrorMessage,
+      message: "Please select a country",
+    });
     return;
   }
   // For each country, defines the pattern that the postal code has to follow
@@ -78,20 +88,64 @@ const validatePassword = (input) => {
   const constraint = new RegExp(
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$"
   );
-  if (input.length < 8) {
+  const lengthConstraint = /^.{8,}$/;
+  const upperCaseConstraint = /[A-Z]/;
+  const specialCharacterConstraint = /[!@#$%^&*(),.?":{}|<>_\-\\[\]\/+=~`'`;]/;
+  const numberConstraint = /\d/;
+  if (
+    !(
+      lengthConstraint.test(input) &&
+      upperCaseConstraint.test(input) &&
+      specialCharacterConstraint.test(input) &&
+      numberConstraint.test(input)
+    )
+  ) {
     setUserFeedback({
       element: passwordErrorMessage,
-      message: "Password must be at least 8 characters long",
+      message: "Please enter a valid password",
     });
-    if (!constraint.test(input)) {
-      setUserFeedback({
-        element: passwordErrorMessage,
-        message: "Please enter a valid password",
-      });
-    }
+  passwordRules.style.display = "block";
+  } else {
+    setUserFeedback({
+      element: passwordErrorMessage,
+      message: "",
+    });
+  passwordRules.style.display = "none";
+
+  }
+
+  if (lengthConstraint.test(input)) {
+    passwordRules.querySelectorAll("ul li")[0].style.color = "green";
+  } else {
+    passwordRules.querySelectorAll("ul li")[0].style.color = "red";
+  }
+  if (upperCaseConstraint.test(input)) {
+    passwordRules.querySelectorAll("ul li")[1].style.color = "green";
+  } else {
+    passwordRules.querySelectorAll("ul li")[1].style.color = "red";
+  }
+  if (specialCharacterConstraint.test(input)) {
+    passwordRules.querySelectorAll("ul li")[2].style.color = "green";
+  } else {
+    passwordRules.querySelectorAll("ul li")[2].style.color = "red";
+  }
+  if (numberConstraint.test(input)) {
+    passwordRules.querySelectorAll("ul li")[3].style.color = "green";
+  } else {
+    passwordRules.querySelectorAll("ul li")[3].style.color = "red";
   }
 };
 
 const setUserFeedback = ({ element, message = "" }) => {
   element.textContent = message;
 };
+
+emailField.addEventListener("input", function () {
+  validateEmail(this.value);
+});
+passwordField.addEventListener("input", function () {
+  validatePassword(this.value);
+});
+postalCodeField.addEventListener("input", function () {
+  validatePostalCode(countrySelectBox.value);
+});

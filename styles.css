@@ -159,10 +159,10 @@ form {
 }
 
 .password-rules {
-  margin-top: 0.6rem;
   border-radius: 8px;
+  display: none;
   padding-left: 0.4rem;
-  border-left: 6px solid gray;
+  border-left: 6px solid rgb(223, 223, 223);
   border-bottom: 1px solid rgb(223, 223, 223);
   border-top: 1px solid rgb(223, 223, 223);
   border-right: 1px solid rgb(223, 223, 223);
