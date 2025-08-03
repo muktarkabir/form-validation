@@ -10,13 +10,15 @@
     <form action="#" novalidate>
       <div class="email">
         <label for="email">Email</label>
-        <input type="text" name="email" id="email" required />
+        <input type="email" name="email" id="email" required />
+        <p></p>
       </div>
       <div class="password">
         <label for="password">Password</label>
         <input type="password" name="password" id="password" required />
+        <p></p>
       </div>
-      <div class="password">
+      <div class="confirm-password">
         <label for="confirm-password">Confirm password</label>
         <input
           type="confirm-password"
@@ -24,20 +26,24 @@
           id="confirm-password"
           required
         />
+        <p></p>
       </div>
       <div class="country">
         <label for="country">Country</label>
-        <select id="country">
-            <option value="ng">Nigeria</option>
+        <select id="country" required>
+          <option value="">-- Please Select --</option>
+          <option value="ng">Nigeria</option>
           <option value="ch">Switzerland</option>
           <option value="fr">France</option>
           <option value="de">Germany</option>
           <option value="nl">The Netherlands</option>
         </select>
+        <p></p>
       </div>
       <div class="postal-code">
         <label for="postal-code">Postal Code</label>
-        <input type="number" name="postal-code" id="postal-code" />
+        <input type="tel" name="postal-code" id="postal-code" />
+        <p></p>
       </div>
       <input type="submit" value="Validate" />
     </form>
