@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Form Validation</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <form action="#" novalidate>
       <div class="email">
         <label for="email">Email</label>
-        <input type="text" name="email" id="email" />
+        <input type="text" name="email" id="email" required />
       </div>
       <div class="password">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" />
+        <input type="password" name="password" id="password" required />
       </div>
       <div class="password">
         <label for="confirm-password">Confirm password</label>
@@ -22,11 +22,18 @@
           type="confirm-password"
           name="confirm-password"
           id="confirm-password"
+          required
         />
       </div>
       <div class="country">
         <label for="country">Country</label>
-        <input type="text" name="country" id="country" />
+        <select id="country">
+            <option value="ng">Nigeria</option>
+          <option value="ch">Switzerland</option>
+          <option value="fr">France</option>
+          <option value="de">Germany</option>
+          <option value="nl">The Netherlands</option>
+        </select>
       </div>
       <div class="postal-code">
         <label for="postal-code">Postal Code</label>
