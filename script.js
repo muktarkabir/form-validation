@@ -74,13 +74,31 @@ function validatePostalCode(country) {
 const validateEmail = (input) => {
   // Regular expression for email validation as per HTML specification
   const emailRegExp = /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)*$/i;
-  if (emailRegExp.test(input)) {
-    emailErrorMessage.textContent = "";
-  } else {
+
+  if (input == "") {
     setUserFeedback({
       element: emailErrorMessage,
-      message: "Please enter a valid email address.",
+      message: "Please enter a valid email",
     });
+  } else {
+    if (!/^.*@.*$/.test(input)) {
+      setUserFeedback({
+        element: emailErrorMessage,
+        message: "Email must contain the @ symbol",
+      });
+    } else if (!/@[^@]+\.[a-z]{2,}$/.test(input)) {
+      setUserFeedback({
+        element: emailErrorMessage,
+        message: "Email must end with a valid domain e.g .com,.org",
+      });
+    } else if (!/^\S+$/.test(input)) {
+      setUserFeedback({
+        element: emailErrorMessage,
+        message: "Email must not contain spaces",
+      });
+    } else if (emailRegExp.test(input)) {
+      setUserFeedback({ element: emailErrorMessage });
+    }
   }
 };
 
@@ -104,14 +122,13 @@ const validatePassword = (input) => {
       element: passwordErrorMessage,
       message: "Please enter a valid password",
     });
-  passwordRules.style.display = "block";
+    passwordRules.style.display = "block";
   } else {
     setUserFeedback({
       element: passwordErrorMessage,
       message: "",
     });
-  passwordRules.style.display = "none";
-
+    passwordRules.style.display = "none";
   }
 
   if (lengthConstraint.test(input)) {
@@ -146,6 +163,7 @@ emailField.addEventListener("input", function () {
 passwordField.addEventListener("input", function () {
   validatePassword(this.value);
 });
+
 postalCodeField.addEventListener("input", function () {
   validatePostalCode(countrySelectBox.value);
 });
