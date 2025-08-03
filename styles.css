@@ -181,10 +181,12 @@ form {
   background-color: #fff;
   z-index: 20;
   position: absolute;
-  /* transform: translateY(-100%); */
+  transform: translateY(-100%);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 12px;
+  transition: transform 400ms ease-in;
 }
+

@@ -228,6 +228,7 @@ submitButton.addEventListener("click", (e) => {
   validatePostalCode(countrySelectBox.value);
   if (everythingChecksOut()) {
     console.log("Yassssss");
+    document.querySelector(".congrats").style.transform = 'translateY(0%)';
   } else {
     console.log("Nooooooo");
   }
