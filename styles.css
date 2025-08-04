@@ -181,7 +181,7 @@ form {
   background-color: #fff;
   z-index: 20;
   position: absolute;
-  transform: translateY(-100%);
+  transform: translateY(-200%);
   display: flex;
   justify-content: center;
   align-items: center;
