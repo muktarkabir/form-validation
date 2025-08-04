@@ -186,6 +186,8 @@ form {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
+  display: none;
   gap: 12px;
   transition: transform 400ms ease-in;
 }

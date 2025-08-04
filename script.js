@@ -31,6 +31,13 @@ function validatePostalCode(country) {
       element: countrySelectErrorMessage,
       message: "Please select a country",
     });
+    if (postalCodeField.value == "") {
+      setUserFeedback({
+        element: postalCodeErrorMessage,
+        message: "Enter a postal code",
+      });
+    }
+
     return;
   }
   // For each country, defines the pattern that the postal code has to follow
@@ -228,7 +235,10 @@ submitButton.addEventListener("click", (e) => {
   validatePostalCode(countrySelectBox.value);
   if (everythingChecksOut()) {
     console.log("Yassssss");
-    document.querySelector(".congrats").style.transform = 'translateY(0%)';
+    document.querySelector(".congrats").style.display = "flex";
+    setTimeout(() => {
+      document.querySelector(".congrats").style.transform = "translateY(0%)";
+    }, 30);
   } else {
     console.log("Nooooooo");
   }
